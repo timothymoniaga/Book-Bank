@@ -38,7 +38,7 @@ struct ContentView: View {
                     .cornerRadius(8)
                     .listRowInsets(EdgeInsets())
                 }
-//                .onDelete(perform: deleteItems)
+                .onDelete(perform: deleteItem)
             }
             .scrollContentBackground(.hidden)
             .background(Color.bookBackground.ignoresSafeArea())
@@ -62,8 +62,8 @@ struct ContentView: View {
             }
         }
     }
-
-    private func deleteItems(offsets: IndexSet) {
+    
+    private func deleteItem(at offsets: IndexSet) {
         withAnimation {
             for index in offsets {
                 modelContext.delete(words[index])

@@ -115,6 +115,10 @@ final class AddWordViewModel: ObservableObject {
         return nil
     }
     
+    func deleteWord(_ word: Word, context: ModelContext) {
+        context.delete(word)
+    }
+    
     
 //    func extractKeyFromDefinitionDict() -> String{
 //        guard let selectedDefinition else {
