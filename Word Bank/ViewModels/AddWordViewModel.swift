@@ -40,7 +40,6 @@ final class AddWordViewModel: ObservableObject {
     }
     
     
-
     func getMainDefinitions() {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
 
@@ -51,6 +50,9 @@ final class AddWordViewModel: ObservableObject {
 //            definitions = []
             return
         }
+        
+        mainDefinitions = [:]
+        selectedDefinition = nil
         
         Task {
             do {
@@ -66,7 +68,9 @@ final class AddWordViewModel: ObservableObject {
                     }
                 }
             } catch {
-                mainDefinitions = ["": ["Could not find word or word was spelt incorrectly"]]
+                if (mainDefinitions.isEmpty) {
+                    mainDefinitions = ["": ["Could not find word or word was spelt incorrectly"]]
+                }
             }
         }
     }

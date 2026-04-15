@@ -23,10 +23,12 @@ struct ContentView: View {
                         HStack(alignment: .bottom) {
                             Text(word.word + ":")
                                 .font(.system(size: 16, weight: .bold))
+                                .foregroundStyle(Color.bookText)
                             Text(word.mainDefinition)
                                 .font(.system(size: 16, weight: .light))
                                 .lineLimit(1)
                                 .truncationMode(.tail)
+                                .foregroundStyle(Color.bookText)
                         }
                     }
                     .listRowBackground(Color.clear)
@@ -78,19 +80,28 @@ struct WordDetails: View {
 
             Text(word.partOfSpeech.capitalized)
                 .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(Color.bookText)
+
             Text(word.mainDefinition)
                 .padding(.leading, 12)
+                .foregroundStyle(Color.bookText)
+
 
             Text("Synonyms")
                 .font(Font.system(size: 16, weight: .bold))
+                .foregroundStyle(Color.bookText)
             if (!word.synonyms.isEmpty) {
                 ForEach(word.synonyms, id: \.self) { synonym in
                     Text("• " + synonym.capitalized)
                         .padding(.leading, 12)
+                        .foregroundStyle(Color.bookText)
+
                 }
             } else {
                 Text("No synonyms found.")
                     .padding(.leading, 12)
+                    .foregroundStyle(Color.bookText)
+
             }
 
             Divider()
@@ -99,6 +110,7 @@ struct WordDetails: View {
             Text(word.example)
                 .padding(.leading, 12)
                 .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundStyle(Color.bookText)
 
         }
         .toolbar {
@@ -122,7 +134,7 @@ struct AddWordView: View {
     var body: some View {
         VStack(spacing: 16) {
             HStack {
-                TextField("Search for definition", text: $viewModel.query)
+                TextField("", text: $viewModel.query, prompt: Text("Search for definition").foregroundStyle(Color.bookText.opacity(0.5)))
                     .padding()
                     .submitLabel(.search)
                     .onSubmit {
@@ -175,10 +187,11 @@ struct AddWordView: View {
                                 }
                             }
                         }
+                        .padding(4)
+                        .background(Color.bookCard)
+                        .cornerRadius(8)
                     }
-                    .padding(4)
-                    .background(Color.bookCard)
-                    .cornerRadius(8)
+                    
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
