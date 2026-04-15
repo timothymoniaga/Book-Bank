@@ -88,14 +88,13 @@ final class AddWordViewModel: ObservableObject {
             word: query,
             definitions: definitions,
             mainDefinition: selectedDefinition ?? definitions.first ?? "",
-            synonyms: definitionAndMeaning.definition.synonyms,
+            synonyms: definitionAndMeaning.meaning.synonyms,
             notes: "",
             partOfSpeech: definitionAndMeaning.meaning.partOfSpeech ,//from main definitions key
             example: definitionAndMeaning.definition.example ?? "No example available."
         )
         
         context.insert(newWord)
-        
     }
     
     func getDefinitionAndMeaning() -> (definition: Definition, meaning: Meaning)? {
@@ -111,6 +110,7 @@ final class AddWordViewModel: ObservableObject {
         
         return nil
     }
+    
     
 //    func extractKeyFromDefinitionDict() -> String{
 //        guard let selectedDefinition else {

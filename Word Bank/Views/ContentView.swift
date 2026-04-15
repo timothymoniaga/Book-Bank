@@ -21,17 +21,22 @@ struct ContentView: View {
                 ForEach(words) { word in
                     NavigationLink(destination: WordDetails(word: word)) {
                         HStack(alignment: .bottom) {
-                            Text(word.word + ": ")
+                            Text(word.word + ":")
                                 .font(.system(size: 16, weight: .bold))
                             Text(word.mainDefinition)
-                                .font(.system(size: 13, weight: .light))
+                                .font(.system(size: 16, weight: .light))
                                 .lineLimit(1)
                                 .truncationMode(.tail)
                         }
                     }
                     .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .padding(8)
+                    .background(Color.bookCard)
+                    .cornerRadius(8)
+                    .listRowInsets(EdgeInsets())
                 }
-                .onDelete(perform: deleteItems)
+//                .onDelete(perform: deleteItems)
             }
             .scrollContentBackground(.hidden)
             .background(Color.bookBackground.ignoresSafeArea())
@@ -67,11 +72,34 @@ struct ContentView: View {
 
 struct WordDetails: View {
     var word: Word
-    
+
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 16) {
+
+            Text(word.partOfSpeech.capitalized)
+                .font(.system(size: 16, weight: .bold))
             Text(word.mainDefinition)
-        
+                .padding(.leading, 12)
+
+            Text("Synonyms")
+                .font(Font.system(size: 16, weight: .bold))
+            if (!word.synonyms.isEmpty) {
+                ForEach(word.synonyms, id: \.self) { synonym in
+                    Text("• " + synonym.capitalized)
+                        .padding(.leading, 12)
+                }
+            } else {
+                Text("No synonyms found.")
+                    .padding(.leading, 12)
+            }
+
+            Divider()
+                .padding(.vertical, 4)
+
+            Text(word.example)
+                .padding(.leading, 12)
+                .frame(maxWidth: .infinity, alignment: .center)
+
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -80,9 +108,9 @@ struct WordDetails: View {
                     .foregroundStyle(Color.bookText)
             }
         }
+        .padding(.horizontal, 16)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .background(Color.bookBackground).ignoresSafeArea()
-
-
     }
 }
 
